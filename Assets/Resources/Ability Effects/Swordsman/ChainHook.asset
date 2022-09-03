@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d801c2701229489688917fc7c693dcd5, type: 3}
+  m_Name: ChainHook
+  m_EditorClassIdentifier: 
+  Effect:
+  - {fileID: 1998745729678947217, guid: 84a2e86cc01c85c4e82cab22a908f168, type: 3}
+  Trail: []
+  Line:
+  - {fileID: 1713193077189835433, guid: 3900e19d60dca5e45acd73e8ed01e6b1, type: 3}

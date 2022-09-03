@@ -1,0 +1,8 @@
+.ButtonMain {
+    height: 50%;
+    width: 50%;
+    align-items: stretch;
+    background-image: url('project://database/Assets/Import/Icons/Skill/Warrior/2.png?fileID=2800000&guid=51a604abb15617a4c8261453a000c572&type=3#2');
+    top: 0;
+    right: 0;
+}

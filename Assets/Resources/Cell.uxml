@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="Parent" style="height: 100%; width: 100%; flex-direction: row; align-items: center; justify-content: flex-end; flex-wrap: nowrap;">
+        <ui:Button display-tooltip-when-elided="true" name="myButton" style="width: 30%; height: 100%;" />
+        <ui:Label text="Label" display-tooltip-when-elided="true" name="myLabel" style="width: 70%; height: 100%; -unity-text-align: middle-center; -unity-font-definition: none; -unity-font: url(&apos;project://database/Assets/Import/Fonts/static/OpenSans/OpenSans-Medium.ttf?fileID=12800000&amp;guid=2926c3081f2825542aaff568fc8e45dc&amp;type=3#OpenSans-Medium&apos;); color: rgba(229, 229, 229, 255);" />
+    </ui:VisualElement>
+</ui:UXML>

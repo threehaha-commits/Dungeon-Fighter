@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/BarsUSS.uss?fileID=7433441132597879392&amp;guid=c654a4b5a6c31d9478375a8be4f786a0&amp;type=3#BarsUSS" />
+    <ui:VisualElement name="BarMain" style="height: 11%; width: 20%; justify-content: flex-start; flex-direction: column;">
+        <ui:ProgressBar title="my-progress" name="HealthBar" class="Height ProgressBar ProgressContainer ProgressBarContainer" style="height: 25%; background-color: rgba(255, 0, 0, 255); border-top-left-radius: 4px; border-bottom-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; align-items: stretch; justify-content: flex-start; flex-direction: column; flex-wrap: nowrap; padding-bottom: 0; padding-top: 0;" />
+        <ui:ProgressBar title="my-progress" name="ManaBar" class="Height ProgressBar ProgressContainer ProgressBarContainer" style="height: 25%; background-color: rgb(0, 132, 255); border-top-left-radius: 4px; border-bottom-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px;" />
+        <ui:ProgressBar title="my-progress" name="ExpBar" class="Height ProgressBar ProgressContainer ProgressBarContainer" style="border-left-color: rgb(248, 244, 244); border-right-color: rgb(248, 244, 244); border-top-color: rgb(248, 244, 244); border-bottom-color: rgb(248, 244, 244); background-color: rgb(183, 183, 183); height: 25%; border-top-left-radius: 3px; border-bottom-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; padding-bottom: 0;" />
+    </ui:VisualElement>
+</ui:UXML>

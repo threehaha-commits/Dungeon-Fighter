@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="TargetWindowMain" style="width: 100%; height: 10%;">
+        <ui:VisualElement name="Window" style="width: 20%; height: 68%; left: 40%; background-color: rgba(91, 54, 69, 0.71); border-left-width: 3px; border-right-width: 3px; border-top-width: 3px; border-bottom-width: 3px; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-left-color: rgb(58, 19, 41); border-right-color: rgb(58, 19, 41); border-top-color: rgb(58, 19, 41); border-bottom-color: rgb(58, 19, 41); display: flex; visibility: visible;">
+            <ui:Label text="TargetName" display-tooltip-when-elided="true" name="TargetName" style="width: 100%; height: 100%; -unity-text-align: middle-center; -unity-font: url(&apos;project://database/Assets/Import/Fonts/static/OpenSans/OpenSans-Medium.ttf?fileID=12800000&amp;guid=2926c3081f2825542aaff568fc8e45dc&amp;type=3#OpenSans-Medium&apos;); -unity-font-definition: none; font-size: 44px; color: rgb(255, 255, 255); -unity-text-outline-color: rgb(91, 47, 47); -unity-text-outline-width: 0.5px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

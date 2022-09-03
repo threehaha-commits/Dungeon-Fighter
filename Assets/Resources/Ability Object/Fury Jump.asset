@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e89f5d82cdfba040a4f12a1b557e8f1, type: 3}
+  m_Name: Fury Jump
+  m_EditorClassIdentifier: 
+  Name: FuryJump
+  Icon: {fileID: 21300000, guid: 2f91415be1bed6d4b81622200128e656, type: 3}
+  Effects: {fileID: 11400000, guid: a12f67970330c7e4f8eef8d828e51c0b, type: 2}
+  MaxRange: 0.4
+  MinRange: 0
+  Cooldown: 10
+  ManaCost: 10
