@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Zenject;
 
 public interface IAbility
 {
-    AbilityInfo InfoAbility { get; }
+    AbilityInfo InfoAbility { get; set; }
     void Use();
 }
 
@@ -16,7 +13,6 @@ public interface IAbilityTarget : IAbility
 
 public class Ability
 {
-    private float CurrentCooldown = 0f;
     private Reloader Reload;
     private AbilityInfo Info;
     

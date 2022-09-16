@@ -33,7 +33,7 @@ public class AbilityVisualInterface : MonoBehaviour
 
                 SetAbilityManaCost(Abilities[index].InfoAbility, element);
 
-                element.name = SetSlotName(Abilities[index].InfoAbility);
+                ChangeSlotNameToInfoAbilityName(element, index);//SetSlotName(Abilities[index].InfoAbility);
                 
                 button.clicked += Abilities[index].Use;
                 index++;
@@ -41,9 +41,9 @@ public class AbilityVisualInterface : MonoBehaviour
         }
     }
 
-    private string SetSlotName(AbilityInfo info)
+    private void ChangeSlotNameToInfoAbilityName(VisualElement element, int index)
     {
-       return info.name;
+        element.name = Abilities[index].InfoAbility.name;
     }
 
     private void SetAbilityManaCost(AbilityInfo info, VisualElement root)

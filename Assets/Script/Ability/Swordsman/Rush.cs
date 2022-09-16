@@ -1,39 +1,24 @@
-using System;
-using System.Collections;
 using UnityEngine;
-using Zenject;
 
 public class Rush : MonoBehaviour, IAbilityTarget
 {
-    [SerializeField] private AbilityInfo Info;
-    public AbilityInfo InfoAbility => Info;
+    public AbilityInfo InfoAbility { get; set; }
     private TrailRenderer Effect;
     [SerializeField] private float RushSpeed = 3f;
     private float StunDuration = 2.75f;
     public Transform Target { get; set; }
+    private RushLogic Ability;
     
     private void Awake()
     {
-        Effect = (TrailRenderer)Info.Effects.GetEffect(Info.Effects.Trail[0], transform);
+        InfoAbility = Resources.Load<AbilityInfo>("Ability Object/Rush");
+        Effect = (TrailRenderer)InfoAbility.Effects.GetEffect(InfoAbility.Effects.Trail[0], transform);
+        Ability = new RushLogic(this, InfoAbility, transform, Effect, RushSpeed, StunDuration);
     }
     
     void IAbility.Use()
     {
-        if (!Info.AbilityMain.AbilityIsReady(Target, transform))
-            return;
-        Effect.emitting = true;
-        Target.GetComponent<CharapterState>().SetStun(StunDuration);
-        StartCoroutine(Rushing());
-    }
-
-    private IEnumerator Rushing(float distance = 1f)
-    {
-        while (distance > Info.MinRange && Target != null)
-        {
-            distance = (Target.position - transform.position).sqrMagnitude;
-            transform.position = Vector3.MoveTowards(transform.position, Target.position, RushSpeed * Time.fixedDeltaTime);
-            yield return new WaitForFixedUpdate();
-        }
-        Effect.emitting = false;
+        if (InfoAbility.AbilityMain.AbilityIsReady(Target, transform))
+            Ability.Use(Target);
     }
 }

@@ -7,7 +7,7 @@ using Zenject;
 public class PlayerDetector : MonoBehaviour
 {
     [SerializeField] private float DistanceForAgressive;
-    [SerializeField] private Transform Player;
+    private Transform Player;
     private float RepeatingRate;
     private float RateWhenEnemyFar = 2f;
     private float RateWhenEnemyNear = 0.5f;
@@ -31,8 +31,8 @@ public class PlayerDetector : MonoBehaviour
     {
         while(gameObject.activeInHierarchy)
         {
-            float disntace = (Player.position - transform.position).sqrMagnitude;
-            if (disntace < DistanceForAgressive)
+            float distance = (Player.position - transform.position).sqrMagnitude;
+            if (distance < DistanceForAgressive)
             {
                 AbilitiesEvents.InvokeAction(Player.gameObject);
                 RepeatingRate = RateWhenEnemyNear;

@@ -25,10 +25,10 @@ public class TargetHandler : MonoBehaviour, IDeathInspector
         Window.visible = true;
         TargetName.text = Target.name;
         ChangeColorBar(Target);
-        SendTargetInAbility();
+        SendTargetToAbility();
     }
 
-    private void SendTargetInAbility()
+    private void SendTargetToAbility()
     {
         foreach (var target in AbilitiesTarget)
         {

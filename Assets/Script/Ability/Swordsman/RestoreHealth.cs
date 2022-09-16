@@ -1,32 +1,28 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Zenject;
 
 public class RestoreHealth : MonoBehaviour, IAbility
 {
-    [SerializeField] private AbilityInfo Info;
-    public AbilityInfo InfoAbility => Info;
+    public AbilityInfo InfoAbility { get; set; }
     private ParticleSystem Effect;
     [SerializeField] private float LifeRestore;
     private Health _Health;
-
+    private RestoreHealthLogic Ability;
+    
     private void Awake()
     {
-        Effect = (ParticleSystem)Info.Effects.GetEffect(Info.Effects.Effect[0], transform);
+        InfoAbility = Resources.Load<AbilityInfo>("Ability Object/Restore Health");
+        Effect = (ParticleSystem)InfoAbility.Effects.GetEffect(InfoAbility.Effects.Effect[0], transform);
     }
 
     private void Start()
     {
         _Health = GetComponent<Health>();
+        Ability = new RestoreHealthLogic(Effect, _Health, LifeRestore);
     }
     
     void IAbility.Use()
     {
-        if (!Info.AbilityMain.AbilityIsReady())
-            return;
-        Effect.Play();
-        _Health.Restore(LifeRestore);
+        if (InfoAbility.AbilityMain.AbilityIsReady())
+            Ability.Use();
     }
 }

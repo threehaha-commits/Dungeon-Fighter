@@ -1,39 +1,29 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FieryRage : MonoBehaviour, IAbilityTarget
 {
-    [SerializeField] private AbilityInfo Info;
-    public AbilityInfo InfoAbility => Info;
+    public AbilityInfo InfoAbility { get; set; }
     private ParticleSystem HitEffect;
     private ParticleSystem HeadEffect;
     [SerializeField] private float DamageAtTheMoment;
     [SerializeField] private float DamageFerSecond;
     [SerializeField] private float DurationBurning;
     public Transform Target { get; set; }
-
+    private FieryRageLogic Ability;
+    
     private void Awake()
     {
-        HitEffect = (ParticleSystem)Info.Effects.GetEffect(Info.Effects.Effect[0], transform);
-        HeadEffect = (ParticleSystem)Info.Effects.GetEffect(Info.Effects.Effect[1], transform);
+        InfoAbility = Resources.Load<AbilityInfo>("Ability Object/Fiery Rage");
+        HitEffect = (ParticleSystem)InfoAbility.Effects.GetEffect(InfoAbility.Effects.Effect[0], transform);
+        HeadEffect = (ParticleSystem)InfoAbility.Effects.GetEffect(InfoAbility.Effects.Effect[1], transform);
+        Ability = new FieryRageLogic(InfoAbility, HitEffect, HeadEffect, DamageAtTheMoment, DamageFerSecond,
+            DurationBurning);
     }
+
 
     void IAbility.Use()
     {
-        if (!Info.AbilityMain.AbilityIsReady(Target, transform))
-            return;
-        HitEffect.transform.position = Target.position;
-        HitEffect.Play();
-
-        IDeathInspector enemyDeathInspector = Target.GetComponent<IDeathInspector>();
-        Health enemyHealth = Target.GetComponent<Health>();
-
-        Target.GetComponent<CharapterState>().StartBurning(DurationBurning, DamageFerSecond, HeadEffect);
-        enemyHealth.ApplyDamage(DamageAtTheMoment);
-        
-        enemyDeathInspector.ApplyDamage(enemyHealth);
-        Target.GetComponent<IDeathInspector>().ApplyDamage(enemyHealth);
+        if (InfoAbility.AbilityMain.AbilityIsReady(Target, transform))
+            Ability.Use(Target);
     }
 }

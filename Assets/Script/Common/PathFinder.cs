@@ -4,21 +4,31 @@ using UnityEngine.Tilemaps;
 
 public class PathFinder
 {
-    private bool DrawPath = false;
+    private bool DrawPath;
     private List<Vector3Int> Current = new();
     private Queue<Vector3> Path = new();
     private List<Vector3Int> Banned = new();
     private const float Offset = 0.16f;
-    private TileBase PickedTile; //Invalid :D
+    private TileBase PickedTile;
     private Grid Grid; // Grid
     private Tilemap Tile; // Ground
     private int IndexBlock = 0;
     public Transform transform { private get; set; }
+    private readonly Vector3 CellSize;
     
-    public PathFinder(Grid grid, Tilemap tilemap)
+    public PathFinder(Grid grid, Tilemap tilemap, bool drawPath = false)
     {
         Tile = tilemap;
         Grid = grid;
+        CellSize = Tile.cellSize;
+        DrawPath = drawPath;
+        if (DrawPath)
+        {
+            var drawSprite = Resources.Load<SpriteRenderer>("DrawPathIcon").sprite;
+            var tile = new Tile();
+            tile.sprite = drawSprite;
+            PickedTile = tile;
+        }
     }
     
     public Queue<Vector3> FindPath(Vector3 playerPosition)
@@ -27,21 +37,29 @@ public class PathFinder
         Banned.Clear();
         IndexBlock = 100;
         Vector3 currentPosition = transform.position;
-        float distance = (playerPosition - currentPosition).sqrMagnitude;
+        var distance = (playerPosition - currentPosition).sqrMagnitude;
         while (distance > 0.1f)
         {
             if (IndexBlock <= 0)
                 return null;
-            GetRoundTiles(currentPosition);
-            currentPosition = PickTile(playerPosition);
-            Path.Enqueue(currentPosition);
+            currentPosition = FindNewCellToMove(playerPosition, currentPosition);
             distance = (playerPosition - currentPosition).sqrMagnitude;
             IndexBlock--;
         }
         return Path;
     }
 
-    private void GetRoundTiles(Vector3 pos)
+    private Vector3 FindNewCellToMove(Vector3 playerPosition, Vector3 currentPosition)
+    {
+        var tileSizeToVector3 = Vector3.zero;
+        FindTilesAroundPosition(currentPosition);
+        currentPosition = PickTile(playerPosition);
+        tileSizeToVector3 = new Vector3(currentPosition.x + CellSize.x / 2, currentPosition.y + CellSize.y / 2, 0);
+        Path.Enqueue(tileSizeToVector3);
+        return currentPosition;
+    }
+
+    private void FindTilesAroundPosition(Vector3 pos)
     {
         Current.Clear();
         Banned.Add(Tile.WorldToCell(pos));
@@ -67,9 +85,17 @@ public class PathFinder
 
     private Vector3 PickTile(Vector3 playerPos)
     {
-        float maxDistance = Mathf.Infinity;
-        Vector3Int currentTile = Vector3Int.zero;
-        Vector3Int playerPosition = Tile.WorldToCell(playerPos);
+        var currentTile = FindNearCurrentTile(playerPos);
+        BanOtherTiles(currentTile);
+        DrawPathOnBlocks(currentTile);
+        return Tile.CellToWorld(currentTile);
+    }
+
+    private Vector3Int FindNearCurrentTile(Vector3 playerPos)
+    {
+        var maxDistance = Mathf.Infinity;
+        var currentTile = Vector3Int.zero;
+        var playerPosition = Tile.WorldToCell(playerPos);
         for (int i = 0; i < Current.Count; i++)
         {
             float distance = (playerPosition - Current[i]).sqrMagnitude;
@@ -79,17 +105,25 @@ public class PathFinder
                 currentTile = Current[i];
             }
         }
-        foreach(var v3 in Current)
+
+        return currentTile;
+    }
+
+    private void BanOtherTiles(Vector3Int currentTile)
+    {
+        foreach (var v3 in Current)
         {
-            if (v3 != currentTile) 
+            if (v3 != currentTile)
             {
                 if (Banned.Contains(v3) == false)
                     Banned.Add(v3);
             }
         }
-        if(DrawPath)
-            Tile.SetTile(currentTile, PickedTile);
-        return Tile.CellToWorld(currentTile);
     }
 
+    private void DrawPathOnBlocks(Vector3Int currentTile)
+    {
+        if (DrawPath)
+            Tile.SetTile(currentTile, PickedTile);
+    }
 }

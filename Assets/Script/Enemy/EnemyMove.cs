@@ -5,7 +5,7 @@ using Zenject;
 
 public class EnemyMove : MoveHandler
 {
-    private Queue<Vector3> Path = new Queue<Vector3>();
+    private Queue<Vector3> Path = new();
     private enum MoveState { NonTarget, HasTarget }
     [SerializeField] private MoveState State = MoveState.NonTarget;
     private Vector2 OriginalPosition;
@@ -50,9 +50,9 @@ public class EnemyMove : MoveHandler
 
     private Vector2 GetDirectionWhenNonTarget()
     {
-        float offset = 0.2f;
-        float randomX = Random.Range(OriginalPosition.x - offset, OriginalPosition.x + offset);
-        float randomY = Random.Range(OriginalPosition.y - offset, OriginalPosition.y + offset);
+        var offset = 0.2f;
+        var randomX = Random.Range(OriginalPosition.x - offset, OriginalPosition.x + offset);
+        var randomY = Random.Range(OriginalPosition.y - offset, OriginalPosition.y + offset);
         return new Vector2(randomX, randomY);
     }
 
@@ -60,8 +60,8 @@ public class EnemyMove : MoveHandler
     {
         if (Path.TryPeek(out Vector3 position))
         {
-            float distanceForMove = (position - MyTransform.position).sqrMagnitude;
-            if (distanceForMove <= 0)
+            var distanceForMove = (position - MyTransform.position).sqrMagnitude;
+            if (distanceForMove < 0f)
                 Path.Dequeue();
         }
         return position;
