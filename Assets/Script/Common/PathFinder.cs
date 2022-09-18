@@ -38,7 +38,7 @@ public class PathFinder
         IndexBlock = 100;
         Vector3 currentPosition = transform.position;
         var distance = (playerPosition - currentPosition).sqrMagnitude;
-        while (distance > 0.1f)
+        while (distance >= 0.08f)
         {
             if (IndexBlock <= 0)
                 return null;

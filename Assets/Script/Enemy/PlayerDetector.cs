@@ -1,48 +1,63 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
 public class PlayerDetector : MonoBehaviour
 {
-    [SerializeField] private float DistanceForAgressive;
+    [SerializeField] private bool VisibleRadiusOfDistances;
+    [SerializeField] private float DistanceForMoveToPlayer;
+    private float DistanceForAttack = 0.2f;
     private Transform Player;
-    private float RepeatingRate;
-    private float RateWhenEnemyFar = 2f;
-    private float RateWhenEnemyNear = 0.5f;
-    private EnemyAbilitiesEvents AbilitiesEvents;
-    private IEnumerator PathFinder => CheckDistanceToPlayer();
-
+    private float RepeatingRateTime;
+    private const float RateTimeWhenPlayerFar = 2f;
+    private const float RateTimeWhenPlayerNear = 0.5f;
+    private IEnumerator MoveHandler => CheckDistanceToPlayerForMove();
+    private EnemyState EnemyStateHandler;
+    
     [Inject]
-    private void Construct(Player Player)
+    private void Construct(Player player)
     {
-        this.Player = Player.transform;
+        Player = player.transform;
     }
-
+    
     private void Start()
     {
-        GetComponent<CoroutineHandler>().AddCoroutine(this, PathFinder);
-        AbilitiesEvents = new EnemyAbilitiesEvents(gameObject);
-        RepeatingRate = RateWhenEnemyFar;
+        EnemyStateHandler = new EnemyState(gameObject, Player);
+        GetComponent<CoroutineHandler>().AddCoroutine(this, MoveHandler);
+        RepeatingRateTime = RateTimeWhenPlayerFar;
     }
 
-    private IEnumerator CheckDistanceToPlayer() 
+    private IEnumerator CheckDistanceToPlayerForMove() 
     {
         while(gameObject.activeInHierarchy)
         {
             float distance = (Player.position - transform.position).sqrMagnitude;
-            if (distance < DistanceForAgressive)
+            if (distance < DistanceForAttack)
             {
-                AbilitiesEvents.InvokeAction(Player.gameObject);
-                RepeatingRate = RateWhenEnemyNear;
+                EnemyStateHandler.ChangeState(EnemyState.StateEnemy.Attack);
+                RepeatingRateTime = RateTimeWhenPlayerNear;
+            }
+            else if (distance < DistanceForMoveToPlayer)
+            {
+                EnemyStateHandler.ChangeState(EnemyState.StateEnemy.Move);
+                RepeatingRateTime = RateTimeWhenPlayerNear;
             }
             else
             {
-                AbilitiesEvents.Cancel(null);
-                RepeatingRate = RateWhenEnemyFar;
+                EnemyStateHandler.ChangeState(EnemyState.StateEnemy.Patrol);
+                RepeatingRateTime = RateTimeWhenPlayerFar;
             }
-            yield return new WaitForSeconds(RepeatingRate);
+            yield return new WaitForSeconds(RepeatingRateTime);
         }
+    }
+    
+    private void OnDrawGizmos()
+    {
+        if (VisibleRadiusOfDistances == false)
+            return;
+        Gizmos.color = new Color(0, 214, 120, 0.35F);
+        Gizmos.DrawSphere(transform.position, DistanceForMoveToPlayer);
+        Gizmos.color = new Color(255, 0, 0, 0.35F);
+        Gizmos.DrawSphere(transform.position, DistanceForAttack);
     }
 }

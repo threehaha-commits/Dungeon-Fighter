@@ -22,6 +22,13 @@ public class EnemyMove : MoveHandler
 
     public void SetPath(GameObject target)
     {
+        if (target == null)
+        {
+            State = MoveState.NonTarget;
+            StateHandler(State);
+            return;
+        }
+        
         Path = PathFinder.FindPath(target.transform.position);
         if (Path != null && Path.TryPeek(out Vector3 pos))
         {

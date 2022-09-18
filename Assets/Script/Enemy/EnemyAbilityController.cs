@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-using Zenject;
 
 public class EnemyAbilityController : MonoBehaviour
 {
@@ -12,7 +11,6 @@ public class EnemyAbilityController : MonoBehaviour
     private void Start()
     {
         GetAbilityInterfaceFromMono();
-        StartCoroutine(DoCast());
     }
 
     private void GetAbilityInterfaceFromMono()
@@ -26,9 +24,11 @@ public class EnemyAbilityController : MonoBehaviour
         }
     }
 
-    public void GetTarget(GameObject Target)
+    public void GetTarget(GameObject target)
     {
-        Player = Target.transform;
+        if (target == null)
+            return;
+        Player = target.transform;
         StartCoroutine(DoCast());
     }
     

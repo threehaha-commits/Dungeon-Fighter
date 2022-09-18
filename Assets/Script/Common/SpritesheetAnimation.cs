@@ -11,10 +11,7 @@ public class SpritesheetAnimation : MonoBehaviour
     private int index;
     private int Index
     {
-        get
-        {
-            return index;
-        }
+        get => index;
         set
         {
             index = value;
@@ -34,7 +31,6 @@ public class SpritesheetAnimation : MonoBehaviour
     {
         while (true)
         {
-            //Debug.Log("Animation is play on " + gameObject.name);
             SpriteRenderer.sprite = Sprites[Index];
             yield return new WaitForSeconds(ChangeAnimationRate);
             Index++;

@@ -5,7 +5,7 @@ public class ClickHandler : MonoBehaviour
 {
     private IMovable Movable;
     private Collider2D EnemyCollider;
-    [SerializeField, Inject] private TargetHandler Target;
+    [Inject] private TargetHandler Target;
     
     [Inject]
     private void Construct(Document Document)

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ public class ChainBehaviour : MonoBehaviour
         LineRenderer = GetComponent<LineRenderer>();
     }
 
-    public void Active(Transform target, Transform player, float minDistance, ParticleSystem effect) 
+    public void Activate(Transform target, Transform player, float minDistance, ParticleSystem effect) 
     {
         if (target == null)
         {
@@ -23,20 +24,21 @@ public class ChainBehaviour : MonoBehaviour
     }
 
     private IEnumerator Drag
-        (Transform target, Transform player, float minDistance, ParticleSystem effect, float distance = 1f)
+        (Transform target, Transform player, float minDistance, ParticleSystem effect)
     {
+        var distance = 1f;
         while (distance > minDistance && (target != null && player != null))
         {
             LineRenderer.SetPosition(0, player.position);
             LineRenderer.SetPosition(1, target.position);
             effect.transform.position = target.position;
-            distance = (target.position - player.position).magnitude;
+            distance = (target.position - player.position).sqrMagnitude;
             yield return new WaitForFixedUpdate();
         }
-        Deactive(effect);
+        Deactivate(effect);
     }
 
-    private void Deactive(ParticleSystem effect)
+    private void Deactivate(ParticleSystem effect)
     {
         effect.Stop();
         gameObject.SetActive(false);

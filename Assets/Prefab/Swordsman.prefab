@@ -4979,7 +4979,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 2650702738625053654}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 197de2d202e958b49953983c15e3bbec, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -5064,7 +5064,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0822306d477f2e147963de309df722bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Target: {fileID: 0}
 --- !u!114 &2650702738625053648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5144,9 +5143,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1463e917918c6545a4dfc55d610f750, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Info: {fileID: 11400000, guid: 8b082bcfb33a77d44a159e97a5566941, type: 2}
-  Effect: {fileID: 0}
-  Chain: {fileID: 0}
   HookSpeed: 3
 --- !u!114 &7578103679859373042
 MonoBehaviour:
@@ -5160,8 +5156,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cc3046186a3f4b4288e29cbebcc9765, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Info: {fileID: 11400000, guid: a0d36aa9ee974734ebc1874e99ac555b, type: 2}
-  Effect: {fileID: 0}
   DamagePercent: 18
 --- !u!114 &2832328762558485609
 MonoBehaviour:
@@ -5175,9 +5169,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1d8ac00c5f7dd44daf6aec06b4fcfff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Info: {fileID: 11400000, guid: 666123e88fc0a40458903219ca564923, type: 2}
-  HitEffect: {fileID: 0}
-  HeadEffect: {fileID: 0}
   DamageAtTheMoment: 15
   DamageFerSecond: 3
   DurationBurning: 3
@@ -5193,10 +5184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd9e2b9b07793304ca32207125bd5416, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Info: {fileID: 11400000, guid: f79db46dfb80ffb4aaf86127c63ec1b3, type: 2}
-  Effect: {fileID: 0}
   RushSpeed: 5
-  StunDuration: 5
 --- !u!114 &3064323874202521743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5209,9 +5197,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e75accd906244ef488f5d1f730d91931, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Info: {fileID: 11400000, guid: 592637b3f99730046a9b40346eeee120, type: 2}
-  TrailEffect: {fileID: 0}
-  BoundEffect: {fileID: 0}
   DamagePerBound: 10
   BoundCount: 5
   TimeBetweenJump: 0.25
@@ -5227,8 +5212,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f1c724d8cf26e141b834b22993a21bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Info: {fileID: 11400000, guid: e2fd5fd3070b2a6469e01bb70ee2c996, type: 2}
-  Effect: {fileID: 0}
   LifeRestore: 25
 --- !u!1 &2650702739310794041
 GameObject:

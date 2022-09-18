@@ -4,14 +4,7 @@ using UnityEngine;
 public class Spawner : MonoBehaviour, IDeathInspector
 {
     [SerializeField] private float SpawnTime;
-    private int SpawnTimeInMillisecond
-    {
-        get
-        {
-            return Mathf.RoundToInt(SpawnTime * 1000);
-        }
-
-    }
+    private int SpawnTimeInMillisecond => Mathf.RoundToInt(SpawnTime * 1000);
     private Vector3 DefaultPosition;
 
     private void Awake()
@@ -25,7 +18,7 @@ public class Spawner : MonoBehaviour, IDeathInspector
             StartSpawn(health);
     }
 
-    async private void StartSpawn(Health health)
+    private async void StartSpawn(Health health)
     {
         gameObject.SetActive(false);
 

@@ -24,7 +24,7 @@ public class ChainHookLogic
     
     public void Use(Transform target)
     {
-        Chain.Active(target, transform, Info.MinRange, Effect);
+        Chain.Activate(target, transform, Info.MinRange, Effect);
         target.GetComponent<CharapterState>().SetStun(StunDuration);
         Mono.StartCoroutine(Hooking(target));
     }
