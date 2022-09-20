@@ -33,7 +33,9 @@ public class AbilityVisualInterface : MonoBehaviour
 
                 SetAbilityManaCost(Abilities[index].InfoAbility, element);
 
-                ChangeSlotNameToInfoAbilityName(element, index);//SetSlotName(Abilities[index].InfoAbility);
+                ChangeSlotNameToInfoAbilityName(element, index);
+
+                SetAbilityToReloader(index, button);
                 
                 button.clicked += Abilities[index].Use;
                 index++;
@@ -57,5 +59,10 @@ public class AbilityVisualInterface : MonoBehaviour
         var button = root.Q<Button>();
         button.style.backgroundImage = new StyleBackground(info.Icon);
         return button;
+    }
+
+    private void SetAbilityToReloader(int index, Button button)
+    {
+        Abilities[index].InfoAbility.AbilityVisualReload = new AbilityReloader(this, button);
     }
 }

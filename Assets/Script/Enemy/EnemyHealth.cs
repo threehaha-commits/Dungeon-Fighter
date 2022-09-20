@@ -1,26 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyHealth : Health
 {
-    [SerializeField] private SpriteRenderer HpBar;
+    [SerializeField] private SpriteRenderer HpRenderer;
     private float FullHpBarLength;
 
     private void Awake()
     {
-        FullHpBarLength = HpBar.size.x;
+        FullHpBarLength = HpRenderer.size.x;
+        HealthChanger = new BarVisualChanger(HpRenderer);
     }
 
     protected override void Start()
     {
         base.Start();
-        ChangeBar();
+        HealthChanger.ChangeBar(FullHpBarLength, CurrentHealth, MaxHealth);
     }
 
     private void OnEnable()
     {
-        ChangeBar();
+        HealthChanger.ChangeBar(FullHpBarLength, CurrentHealth, MaxHealth);
     }
 
     private void Update()
@@ -29,18 +28,18 @@ public class EnemyHealth : Health
             ApplyDamage(10);
     }
 
+    public override void ChangeHpValue(float Value)
+    {
+        base.ChangeHpValue(Value);
+        HealthChanger.ChangeBar(FullHpBarLength, CurrentHealth, MaxHealth);
+    }
+
     public override void ApplyDamage(float damage)
     {
         base.ApplyDamage(damage);
-        ChangeBar();
+        HealthChanger.ChangeBar(FullHpBarLength, CurrentHealth, MaxHealth);
     }
-
-    protected override void ChangeBar()
-    {
-        float x = FullHpBarLength * CurrentHealth / MaxHealth;
-        HpBar.size = new Vector2(x, 1);
-    }
-
+    
     protected override void Death()
     {
         Debug.Log("Enemy has dead");

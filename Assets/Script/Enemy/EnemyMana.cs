@@ -9,8 +9,8 @@ public class EnemyMana : Mana
         base.Start();
     }
 
-    public override void Restore(float Value)
+    public override void ChangeManaValue(float Value)
     {
-        base.Restore(Value);
+        base.ChangeManaValue(Value);
     }
 }

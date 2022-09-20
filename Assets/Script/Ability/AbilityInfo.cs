@@ -7,6 +7,7 @@ public class AbilityInfo : ScriptableObject
     public Sprite Icon;
     private Ability abilityMain;
     public AbilityEffects Effects;
+    public AbilityReloader AbilityVisualReload;
     public Ability AbilityMain
     {
         get

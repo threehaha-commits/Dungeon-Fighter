@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class HealthRegeneration : Regeneration
 {
     private Health _Health;
@@ -14,6 +10,6 @@ public class HealthRegeneration : Regeneration
 
     protected override void PointRegeneration(float value)
     {
-        _Health.Restore(value);
+        _Health.ChangeHpValue(value);
     }
 }

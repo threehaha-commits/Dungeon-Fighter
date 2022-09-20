@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class ManaRegeneration : Regeneration
 {
     private Mana _Mana;
@@ -14,6 +10,6 @@ public class ManaRegeneration : Regeneration
 
     protected override void PointRegeneration(float value)
     {
-        _Mana.Restore(value);
+        _Mana.ChangeManaValue(value);
     }
 }

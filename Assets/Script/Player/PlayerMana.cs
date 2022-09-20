@@ -7,28 +7,28 @@ public class PlayerMana : Mana
     private ProgressBar ManaBar;
 
     [Inject]
-    private void Construct(Document Document)
+    private void Construct(Document document)
     {
-        this.Document = Document.Bar;
+        Document = document.Bar;
+        ManaChanger = new BarVisualChanger(Document, "ManaBar");
     }
 
     protected override void Start()
     {
         base.Start();
-        var root = Document.rootVisualElement;
-        ManaBar = root.Q<ProgressBar>("ManaBar");
-        ManaBar.value = ChangeManaBar();
+        ManaChanger.ChangeBar(CurrentMana, MaxMana);
     }
 
-    public override void Restore(float Value)
+    public override void ChangeManaValue(float Value)
     {
-        base.Restore(Value);
-        ManaBar.value = ChangeManaBar();
+        base.ChangeManaValue(Value);
+        ManaChanger.ChangeBar(CurrentMana, MaxMana);
     }
 
-    private float ChangeManaBar()
+    public void ChangeMaxManaValue(float value)
     {
-        ManaBar.title = $"{CurrentMana}/{MaxMana}";
-        return ManaBar.highValue * CurrentMana / MaxMana;
+        MaxMana += value;
+        CurrentMana = MaxMana;
+        ManaChanger.ChangeBar(CurrentMana, MaxMana);
     }
 }

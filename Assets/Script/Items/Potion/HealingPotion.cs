@@ -13,6 +13,6 @@ public class HealingPotion : ConsumableItem
     public override void Use()
     {
         base.Use();
-        Health.Restore(AmountHealthRestore);
+        Health.ChangeHpValue(AmountHealthRestore);
     }
 }

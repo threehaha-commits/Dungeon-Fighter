@@ -13,6 +13,6 @@ public class ManaPotion : ConsumableItem
     public override void Use()
     {
         base.Use();
-        Mana.Restore(AmountManaRestore);
+        Mana.ChangeManaValue(AmountManaRestore);
     }
 }

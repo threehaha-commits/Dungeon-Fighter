@@ -1,30 +1,22 @@
 using UnityEngine;
-using UnityEngine.UIElements;
 using Zenject;
 
 public class TargetHandler : MonoBehaviour, IDeathInspector
 {
-    public Transform Target { get; private set; }
-    private VisualElement Window;
-    private Label TargetName;
-    private IChangeBarColor TargetBar;
+    private Transform Target;
     [Inject] private IAbilityTarget[] AbilitiesTarget;
+    private VisualTargetWindow TargetWindow;
     
     [Inject]
     private void Construct(Document Document)
     {
-        var root = Document.Target.rootVisualElement;
-        Window = root.Q<VisualElement>("Window");
-        TargetName = root.Q<Label>("TargetName");
-        Window.visible = false;
+        TargetWindow = new VisualTargetWindow(Document);
     }
     
     public void SetTarget(Transform target)
     {
         Target = target;
-        Window.visible = true;
-        TargetName.text = Target.name;
-        ChangeColorBar(Target);
+        TargetWindow.OpenWithTarget(target);
         SendTargetToAbility();
     }
 
@@ -38,21 +30,10 @@ public class TargetHandler : MonoBehaviour, IDeathInspector
     
     public void ApplyDamage(Health health)
     {
-        if (health.IsDeath)
-        {
-            Target = null;
-            Window.visible = false;
-            TargetName.text = "null";
-        }
-    }
-
-    private void ChangeColorBar(Transform Target)
-    {
-        IChangeBarColor targetBar = Target.GetComponentInChildren<IChangeBarColor>();
-        if(TargetBar != null)
-            TargetBar.ChangeColor(Color.red);
-
-        TargetBar = targetBar;
-        TargetBar.ChangeColor(Color.yellow);
+        if (!health.IsDeath)
+            return;
+        
+        Target = null;
+        TargetWindow.Close();
     }
 }

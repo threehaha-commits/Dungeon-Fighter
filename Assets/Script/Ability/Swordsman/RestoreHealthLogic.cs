@@ -16,6 +16,6 @@ public class RestoreHealthLogic
     public void Use()
     {
         Effect.Play();
-        Health.Restore(LifeRestore);
+        Health.ChangeHpValue(LifeRestore);
     }
 }

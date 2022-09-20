@@ -6,36 +6,43 @@ public class PlayerHealth : Health
 {
     private UIDocument Document;
     private ProgressBar HpBar;
-
+    
     [Inject]
-    private void Construct(Document Document)
+    private void Construct(Document document)
     {
-        this.Document = Document.Bar;
+        Document = document.Bar;
+        HealthChanger = new BarVisualChanger(Document, "HealthBar");
     }
+
     protected override void Start()
     {
         base.Start();
-        var root = Document.rootVisualElement;
-        HpBar = root.Q<ProgressBar>("HealthBar");
-        ChangeBar();
+        HealthChanger.ChangeBar(CurrentHealth, MaxHealth);
     }
 
     public override void ApplyDamage(float damage)
     {
         base.ApplyDamage(damage);
-        ChangeBar();
+        HealthChanger.ChangeBar(CurrentHealth, MaxHealth);
     }
 
+    public void ChangeMaxHealthValue(float value)
+    {
+        MaxHealth += value;
+        CurrentHealth = MaxHealth;
+        HealthChanger.ChangeBar(CurrentHealth, MaxHealth);
+    }
+    
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
-            Restore(-25);
+            ChangeHpValue(-25);
     }
 
-    protected override void ChangeBar()
+    public override void ChangeHpValue(float Value)
     {
-        HpBar.title = $"{Mathf.RoundToInt(CurrentHealth)}/{MaxHealth}";
-        HpBar.value = HpBar.highValue * CurrentHealth / MaxHealth;
+        base.ChangeHpValue(Value);
+        HealthChanger.ChangeBar(CurrentHealth, MaxHealth);
     }
 
     protected override void Death()

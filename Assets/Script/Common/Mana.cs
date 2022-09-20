@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Mana : MonoBehaviour
@@ -7,10 +5,7 @@ public class Mana : MonoBehaviour
     [SerializeField] private float _CurrentMana;
     protected float CurrentMana
     {
-        get
-        {
-            return _CurrentMana;
-        }
+        get => _CurrentMana;
         set
         {
             _CurrentMana = value;
@@ -21,13 +16,14 @@ public class Mana : MonoBehaviour
         }
     }
     [SerializeField] protected float MaxMana;
-
+    protected BarVisualChanger ManaChanger;
+    
     protected virtual void Start()
     {
         _CurrentMana = MaxMana;
     }
 
-    public virtual void Restore(float Value)
+    public virtual void ChangeManaValue(float Value)
     {
         CurrentMana += Value;
     }
@@ -35,16 +31,6 @@ public class Mana : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
-            Restore(-25);
-    }
-
-    public float GetCurrentHealth()
-    {
-        return CurrentMana;
-    }
-
-    public float GetMaxHealth()
-    {
-        return MaxMana;
+            ChangeManaValue(-25);
     }
 }

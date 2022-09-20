@@ -17,5 +17,5 @@ MonoBehaviour:
   Effects: {fileID: 11400000, guid: 52a491ec7207a8544abd0bda89ab98a0, type: 2}
   MaxRange: 2.5
   MinRange: 0.2
-  Cooldown: 5
+  Cooldown: 10
   ManaCost: 10

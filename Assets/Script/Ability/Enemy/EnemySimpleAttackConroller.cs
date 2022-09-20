@@ -6,13 +6,16 @@ public class EnemySimpleAttackConroller : MonoBehaviour
     [SerializeField] private ParticleSystem EffectToTarget;
     [SerializeField] private ParticleSystem EffectFromEnemy;
     [SerializeField] private float Damage;
+    [SerializeField] private float ReloadTime;
     private Transform Target;
     private IEnumerator AttackCoroutine;
     private AttackEnemyLogic AttackLogic;
     private EffectController EffectPlayController;
+    private Reloader Reload;
     
     private void Start()
     {
+        Reload = new Reloader(ReloadTime);
         EffectPlayController = new EffectController(EffectToTarget, EffectFromEnemy);
         AttackLogic = new AttackEnemyLogic(Damage);
         AttackCoroutine = Attack();
@@ -33,9 +36,13 @@ public class EnemySimpleAttackConroller : MonoBehaviour
     {
         while(true)
         {
-            EffectPlayController.Play(Target);
-            AttackLogic.Attack(Target);
-            yield return new WaitForSeconds(1f);
+            if(Reload.Reloaded)
+            {
+                EffectPlayController.Play(Target);
+                AttackLogic.Attack(Target);
+                Reload.StartReload();
+            }
+            yield return null;
         }
     }
 

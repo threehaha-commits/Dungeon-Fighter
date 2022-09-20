@@ -8,13 +8,13 @@ public interface IAbility
 
 public interface IAbilityTarget : IAbility
 {
-    Transform Target { get; set; }
+    Transform Target { set; }
 }
 
 public class Ability
 {
-    private Reloader Reload;
-    private AbilityInfo Info;
+    private readonly Reloader Reload;
+    private readonly AbilityInfo Info;
     
     public Ability(AbilityInfo info)
     {
@@ -30,6 +30,7 @@ public class Ability
             return false;
         if (IsDistance(target, transform) == false)
             return false;
+        Info.AbilityVisualReload.StartVisualReload(Info.Cooldown);
         Reload.StartReload();
         return true;
     }
@@ -39,6 +40,7 @@ public class Ability
         if (IsReload() == false)
             return false;
         Reload.StartReload();
+        Info.AbilityVisualReload.StartVisualReload(Info.Cooldown);
         return true;
     }
 

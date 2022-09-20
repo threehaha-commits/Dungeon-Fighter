@@ -25,7 +25,7 @@ public class Spawner : MonoBehaviour, IDeathInspector
         await Task.Delay(SpawnTimeInMillisecond);
 
         transform.position = DefaultPosition;
-        health.Restore(health.GetMaxHealth());
+        health.ChangeHpValue(health.GetMaxHealth());
         gameObject.SetActive(true);
     }
 }

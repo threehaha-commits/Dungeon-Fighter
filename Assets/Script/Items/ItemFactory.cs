@@ -3,7 +3,7 @@ using Zenject;
 
 public interface IItemFactory
 {
-    Item Create(Item item);
+    void Create(Item item);
 }
 
 public class ItemFactory : IItemFactory
@@ -18,13 +18,12 @@ public class ItemFactory : IItemFactory
         this.container = container;
     }
 
-    public Item Create(Item item)
+    public void Create(Item item)
     {
         var itemFromResource = Resources.Load<Item>("Items/Potion/" + item.GetIcon().name);
         var newItem = container.InstantiatePrefabForComponent<Item>(itemFromResource);
         newItem.transform.parent = PlayerCharacter.transform;
         ConsumableItem consumableItem = (ConsumableItem)newItem;
         consumableItem.Construct(new ConsumableHandler(Panel), new ConsumableVisual(Document), Panel);
-        return newItem;
     }
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 interface IApplyDamage
@@ -17,10 +15,7 @@ public abstract class Health : MonoBehaviour, IApplyDamage
     [SerializeField] private float _CurrentHealth;
     protected float CurrentHealth
     {
-        get
-        {
-            return _CurrentHealth;
-        }
+        get => _CurrentHealth;
         set
         {
             _CurrentHealth = value;
@@ -31,32 +26,18 @@ public abstract class Health : MonoBehaviour, IApplyDamage
         }
     }
     [SerializeField] protected float MaxHealth;
-    public bool IsDeath 
-    {
-        get 
-        {
-            if (CurrentHealth <= 0)
-                return true;
-            else
-                return false;
-        }
-    }
+    public bool IsDeath => CurrentHealth <= 0;
 
+    protected BarVisualChanger HealthChanger;
+    
     protected virtual void Start()
     {
         _CurrentHealth = MaxHealth;
     }
-
-
-    public void apply()
-    {
-        Debug.Log("Health");
-    }
-
-    public void Restore(float Value)
+    
+    public virtual void ChangeHpValue(float Value)
     {
         CurrentHealth += Value;
-        ChangeBar();
     }
 
     public float GetCurrentHealth()
@@ -71,11 +52,10 @@ public abstract class Health : MonoBehaviour, IApplyDamage
 
     public virtual void ApplyDamage(float damage)
     {
-        CurrentHealth = CurrentHealth - damage;
+        CurrentHealth -= damage;
         if (IsDeath)
             Death();
     }
 
     protected abstract void Death();
-    protected abstract void ChangeBar();
 }

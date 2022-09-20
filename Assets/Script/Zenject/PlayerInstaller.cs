@@ -33,5 +33,7 @@ public class PlayerInstaller : MonoInstaller
             (Player, SpawnPlayerPoint.position, Quaternion.identity, null);
 
         Container.Bind<Player>().FromInstance(player).AsSingle().NonLazy();
+        var iExpirienceFromPlayer = player.GetComponent<IExpirience>();
+        Container.Bind<IExpirience>().FromInstance(iExpirienceFromPlayer).AsSingle();
     }
 }
