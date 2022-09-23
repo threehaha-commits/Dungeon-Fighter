@@ -4875,6 +4875,7 @@ GameObject:
   - component: {fileID: 2619877646844967760}
   - component: {fileID: 3064323874202521743}
   - component: {fileID: 4787352863208427768}
+  - component: {fileID: -819024251806055362}
   m_Layer: 0
   m_Name: Swordsman
   m_TagString: Player
@@ -5209,7 +5210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DamageAtTheMoment: 15
-  DamageFerSecond: 3
+  DamageFerSecond: 3.5
   DurationBurning: 3
 --- !u!114 &2619877646844967760
 MonoBehaviour:
@@ -5236,7 +5237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e75accd906244ef488f5d1f730d91931, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamagePerBound: 10
+  DamagePerBound: 7.5
   BoundCount: 5
   TimeBetweenJump: 0.25
 --- !u!114 &4787352863208427768
@@ -5252,6 +5253,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LifeRestore: 25
+--- !u!114 &-819024251806055362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2650702738625053654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0e6de09b8724514a794c21a21cb1f1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2650702739310794041
 GameObject:
   m_ObjectHideFlags: 0

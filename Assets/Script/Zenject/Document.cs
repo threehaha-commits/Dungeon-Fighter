@@ -9,4 +9,5 @@ public class Document
     public UIDocument Target;
     public UIDocument ItemPanel;
     public UIDocument DescriptionWindow;
+    public UIDocument WindowWithSkills;
 }

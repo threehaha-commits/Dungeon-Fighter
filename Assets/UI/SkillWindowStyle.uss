@@ -1,0 +1,53 @@
+.SkillSlotStyle {
+    left: 0;
+    top: 0;
+    width: 65%;
+    height: 16%;
+    border-left-color: rgb(159, 141, 119);
+    border-right-color: rgb(159, 141, 119);
+    border-top-color: rgb(159, 141, 119);
+    border-bottom-color: rgb(159, 141, 119);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+.upgradeButton {
+    width: 20%;
+    height: 32%;
+    left: 1px;
+    top: 63%;
+    border-left-color: rgba(159, 141, 119, 255);
+    border-right-color: rgba(159, 141, 119, 255);
+    border-top-color: rgba(159, 141, 119, 255);
+    border-bottom-color: rgba(159, 141, 119, 255);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+}
+
+.upgradeButton-click:active {
+    width: 20%;
+    height: 32%;
+    left: 1px;
+    top: 63%;
+    border-left-color: rgb(128, 97, 61);
+    border-right-color: rgb(128, 97, 61);
+    border-top-color: rgb(128, 97, 61);
+    border-bottom-color: rgb(128, 97, 61);
+    border-left-width: 5px;
+    border-right-width: 5px;
+    border-top-width: 5px;
+    border-bottom-width: 5px;
+    background-color: rgba(178, 165, 149, 255);
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}

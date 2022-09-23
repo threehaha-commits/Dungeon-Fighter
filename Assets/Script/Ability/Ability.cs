@@ -11,15 +11,25 @@ public interface IAbilityTarget : IAbility
     Transform Target { set; }
 }
 
-public class Ability
+public class Ability : IReducibleCooldown
 {
-    private readonly Reloader Reload;
+    private Reloader Reload;
+    private float ReloadTime;
     private readonly AbilityInfo Info;
+    private readonly IReducibleCooldown ReducibleCooldown;
     
     public Ability(AbilityInfo info)
     {
         Info = info;
-        Reload = new Reloader(info.Cooldown);
+        ReloadTime = Info.Cooldown;
+        Reload = new Reloader(ReloadTime);
+        ReducibleCooldown = this;
+    }
+    
+    void IReducibleCooldown.ReduceCooldown(float reduceCooldownTime)
+    {
+        ReloadTime -= reduceCooldownTime;
+        Reload = new Reloader(ReloadTime);
     }
     
     public bool AbilityIsReady(Transform target, Transform transform)
@@ -30,7 +40,7 @@ public class Ability
             return false;
         if (IsDistance(target, transform) == false)
             return false;
-        Info.AbilityVisualReload.StartVisualReload(Info.Cooldown);
+        Info.AbilityVisualReload.StartVisualReload(ReloadTime);
         Reload.StartReload();
         return true;
     }

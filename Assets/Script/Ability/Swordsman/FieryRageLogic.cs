@@ -1,23 +1,27 @@
 ﻿using UnityEngine;
 
-public class FieryRageLogic
+public class FieryRageLogic : IProlongingEffect
 {
-    private readonly AbilityInfo Info;
     private readonly ParticleSystem HitEffect;
     private readonly ParticleSystem HeadEffect;
     private readonly float DamageAtTheMoment;
     private readonly float DamageFerSecond;
-    private readonly float DurationBurning;
-    
-    public FieryRageLogic(AbilityInfo info,  ParticleSystem hitEffect, ParticleSystem headEffect, 
+    private float DurationBurning;
+    private readonly float BaseDurationBurning;
+    private float _prolongDuration;
+    float IProlongingEffect.ProlongDuration { get; set; }
+    private IProlongingEffect ProlongingEffect;
+
+    public FieryRageLogic(ParticleSystem hitEffect, ParticleSystem headEffect, 
         float damageAtTheMoment, float damageFerSecond, float durationBurning)
     {
-        Info = info;
         HitEffect = hitEffect;
         HeadEffect = headEffect;
         DamageAtTheMoment = damageAtTheMoment;
         DamageFerSecond = damageFerSecond;
         DurationBurning = durationBurning;
+        BaseDurationBurning = durationBurning;
+        ProlongingEffect = this;
     }
     
     public void Use(Transform target)
@@ -33,5 +37,10 @@ public class FieryRageLogic
         
         enemyDeathInspector.ApplyDamage(enemyHealth);
         target.GetComponent<IDeathInspector>().ApplyDamage(enemyHealth);
+    }
+
+    void IProlongingEffect.ProlongingEffect()
+    {
+        DurationBurning = BaseDurationBurning + ProlongingEffect.ProlongDuration;
     }
 }

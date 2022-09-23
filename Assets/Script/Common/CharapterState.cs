@@ -45,6 +45,7 @@ public class CharapterState : MonoBehaviour
 
     public void SetStun(float duration)
     {
+        Debug.Log($"Stun duration is {duration}");
         StunHandler.Stun(duration);
         StateHandler(StunHandler);
     }

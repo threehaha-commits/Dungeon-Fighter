@@ -16,7 +16,7 @@ public class FieryRage : MonoBehaviour, IAbilityTarget
         InfoAbility = Resources.Load<AbilityInfo>("Ability Object/Fiery Rage");
         HitEffect = (ParticleSystem)InfoAbility.Effects.GetEffect(InfoAbility.Effects.Effect[0], transform);
         HeadEffect = (ParticleSystem)InfoAbility.Effects.GetEffect(InfoAbility.Effects.Effect[1], transform);
-        Ability = new FieryRageLogic(InfoAbility, HitEffect, HeadEffect, DamageAtTheMoment, DamageFerSecond,
+        Ability = new FieryRageLogic(HitEffect, HeadEffect, DamageAtTheMoment, DamageFerSecond,
             DurationBurning);
     }
 

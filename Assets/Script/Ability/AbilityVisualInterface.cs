@@ -13,7 +13,7 @@ public class AbilityVisualInterface : MonoBehaviour
         Document = document.Skill;
     }
     
-    private void Start()
+    private void Awake()
     {
         RegisterAbilityInTheInterface();
     }
