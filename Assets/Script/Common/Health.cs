@@ -39,6 +39,13 @@ public abstract class Health : MonoBehaviour, IApplyDamage
     {
         CurrentHealth += Value;
     }
+    
+    public void ChangeMaxHealthValue(float value)
+    {
+        MaxHealth += value;
+        CurrentHealth = MaxHealth;
+        HealthChanger.ChangeBar(CurrentHealth, MaxHealth);
+    }
 
     public float GetCurrentHealth()
     {

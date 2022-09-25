@@ -1,33 +1,31 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class BurningHandler : IBurning
+public class PeriodicDamageHandler : IPeriodicDamageable
 {
     public MonoBehaviour Mono { get; set; }
-    private IBurning IBurning;
-    private Transform Head;
-    private Health Health;
-    private IStateHandler Stun;
-    private Transform Target;
+    private readonly IPeriodicDamageable PeriodicDamageable;
+    private readonly Health Health;
+    private readonly Transform Target;
     
-    public BurningHandler(MonoBehaviour mono, Transform target)
+    public PeriodicDamageHandler(MonoBehaviour mono, Transform target)
     {
-        IBurning = this;
+        PeriodicDamageable = this;
         Mono = mono;
         Target = target;
-        Head = Target.Find("Head");
         Health = Target.GetComponent<Health>();
     }
 
-    void IBurning.Burn(float duration, float damagePerSecond, ParticleSystem effect)
+    void IPeriodicDamageable.StartPeriodicDamage(float duration, float damagePerSecond, ParticleSystem effect)
     {
-        Mono.StartCoroutine(IBurning.Burning(duration, damagePerSecond, effect));
+        Mono.StartCoroutine(PeriodicDamageable.PeriodicDamage(duration, damagePerSecond, effect));
     }
 
-    public IEnumerator Burning(float duration, float damagePerSecond, ParticleSystem effect)
+    IEnumerator IPeriodicDamageable.PeriodicDamage(float duration, float damagePerSecond, ParticleSystem effect)
     {
-        effect.transform.parent = Head;
-        effect.transform.localPosition = Vector2.zero;
+        var position = effect.transform.localPosition;
+        effect.transform.parent = Target;
+        effect.transform.localPosition = position;
         IDeathInspector deathInspector = Target.GetComponent<IDeathInspector>();
         while (duration > 0)
         {

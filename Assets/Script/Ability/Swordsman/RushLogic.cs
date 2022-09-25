@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class RushLogic
+public class RushLogic : IActioner<float>
 {
     private readonly AbilityInfo InfoAbility;
     private readonly TrailRenderer Effect;
@@ -9,6 +9,9 @@ public class RushLogic
     private readonly float StunDuration;
     private readonly MonoBehaviour Mono;
     private readonly Transform transform;
+    float IActioner<float>.Value { get; set; }
+    private IActioner<float> GetterDamageable;
+    private Transform Target;
     
     public RushLogic(MonoBehaviour mono, AbilityInfo infoAbility, Transform transform, TrailRenderer effect, float rushSpeed, float stunDuration)
     {
@@ -18,10 +21,12 @@ public class RushLogic
         Effect = effect;
         RushSpeed = rushSpeed;
         StunDuration = stunDuration;
+        GetterDamageable = this;
     }
     
     public void Use(Transform target)
     {
+        Target = target;
         Effect.emitting = true;
         target.GetComponent<CharapterState>().SetStun(StunDuration);
         Mono.StartCoroutine(Rushing(target));
@@ -36,5 +41,15 @@ public class RushLogic
             yield return new WaitForFixedUpdate();
         }
         Effect.emitting = false;
+    }
+
+    void IActioner<float>.Action()
+    {
+        Health enemyHealth = Target.GetComponent<Health>();
+        IDeathInspector enemyDeathInspector = Target.GetComponent<IDeathInspector>();
+        float calculatedPercentValue = GetterDamageable.Value * enemyHealth.GetCurrentHealth() / 100;
+        enemyHealth.ApplyDamage(calculatedPercentValue);
+        enemyDeathInspector.ApplyDamage(enemyHealth);
+        Target.GetComponent<IDeathInspector>().ApplyDamage(enemyHealth);
     }
 }

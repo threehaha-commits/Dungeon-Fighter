@@ -11,12 +11,12 @@ public interface IAbilityTarget : IAbility
     Transform Target { set; }
 }
 
-public class Ability : IReducibleCooldown
+public class Ability : IValueChanger<float>
 {
     private Reloader Reload;
     private float ReloadTime;
     private readonly AbilityInfo Info;
-    private readonly IReducibleCooldown ReducibleCooldown;
+    private readonly IValueChanger<float> ReducibleCooldown;
     
     public Ability(AbilityInfo info)
     {
@@ -26,7 +26,7 @@ public class Ability : IReducibleCooldown
         ReducibleCooldown = this;
     }
     
-    void IReducibleCooldown.ReduceCooldown(float reduceCooldownTime)
+    void IValueChanger<float>.ChangeValue(float reduceCooldownTime)
     {
         ReloadTime -= reduceCooldownTime;
         Reload = new Reloader(ReloadTime);

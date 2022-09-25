@@ -1,4 +1,6 @@
-﻿public interface IUpgradeAbility { }
+﻿using UnityEngine;
+
+public interface IUpgradeAbility { }
 
 public interface IUpgradableEffect
 {
@@ -10,19 +12,34 @@ public interface ISetterNewEffect<T> where T : IUpgradeAbility
     void SetNewEffect(T upgradeAbility);
 }
 
-public interface IProlongingEffect : IUpgradeAbility
+/// <typeparam name="T">Type for identification identical interfaces</typeparam>
+public interface IValueChanger<T, K>
 {
-    float ProlongDuration { get; set; }
-    void ProlongingEffect();
+    void ChangeValue(K value);
 }
 
-public interface IGetterDamageable : IUpgradeAbility
+public interface IValueChanger<T>
 {
-    float Damage { get; set; }
-    void ApplyDamage();
+    void ChangeValue(T value);
 }
 
-public interface IReducibleCooldown : IUpgradeAbility
+/// <typeparam name="T">Type for identification identical interfaces</typeparam>
+public interface IActioner<T, K> : IUpgradeAbility
 {
-    void ReduceCooldown(float reduceCooldownTime);
+    K Value { get; set; }
+    void Action();
+}
+
+public interface IActioner<T> : IUpgradeAbility
+{
+    T Value { get; set; }
+    void Action();
+}
+
+public interface IGetterPeriodicDamageable : IUpgradeAbility
+{
+    float Duration { get; set; }
+    float DamagePerSecond { get; set; }
+    ParticleSystem Effect { get; set; }
+    void StartPeriodicDamage();
 }

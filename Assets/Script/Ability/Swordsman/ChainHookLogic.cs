@@ -1,19 +1,19 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class ChainHookLogic : IProlongingEffect, IGetterDamageable
+public class ChainHookLogic : IActioner<ChainHookDealsDamage, float>, IActioner<ChainHookStunDurationUpgrade, float>
 {
     private readonly AbilityInfo Info;
     private readonly float HookSpeed;
-    private const float StunDuration = 1.25f;
+    private float StunDuration = 1.25f;
     private readonly ParticleSystem Effect;
     private readonly ChainBehaviour Chain;
     private readonly Transform transform;
     private readonly MonoBehaviour Mono;
-    private readonly IProlongingEffect ProlongingInterface;
-    private readonly IGetterDamageable GetterDamageable;
-    float IProlongingEffect.ProlongDuration { get; set; } = 0;
-    float IGetterDamageable.Damage { get; set; } = 5;
+    private readonly IActioner<ChainHookStunDurationUpgrade, float> DurationUpgrade;
+    private readonly IActioner<ChainHookDealsDamage, float> GetterDamageable;
+    float IActioner<ChainHookStunDurationUpgrade, float>.Value { get; set; }
+    float IActioner<ChainHookDealsDamage, float>.Value { get; set; } = 5;
 
     private Transform Target;
     
@@ -25,7 +25,7 @@ public class ChainHookLogic : IProlongingEffect, IGetterDamageable
         HookSpeed = hookSpeed;
         Effect = effect;
         Chain = chain;
-        ProlongingInterface = this;
+        DurationUpgrade = this;
         GetterDamageable = this;
     }
     
@@ -48,17 +48,17 @@ public class ChainHookLogic : IProlongingEffect, IGetterDamageable
         }
     }
     
-    void IProlongingEffect.ProlongingEffect()
+    void IActioner<ChainHookStunDurationUpgrade, float>.Action()
     {
-        Target.GetComponent<CharapterState>().SetStun(ProlongingInterface.ProlongDuration);
+        StunDuration += DurationUpgrade.Value;
     }
 
-    void IGetterDamageable.ApplyDamage()
+    void IActioner<ChainHookDealsDamage, float>.Action()
     {
         IDeathInspector enemyDeathInspector = Target.GetComponent<IDeathInspector>();
         Health enemyHealth = Target.GetComponent<Health>();
 
-        enemyHealth.ApplyDamage(GetterDamageable.Damage);
+        enemyHealth.ApplyDamage(GetterDamageable.Value);
         
         enemyDeathInspector.ApplyDamage(enemyHealth);
         Target.GetComponent<IDeathInspector>().ApplyDamage(enemyHealth);

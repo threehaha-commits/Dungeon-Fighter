@@ -1,16 +1,15 @@
 ﻿using UnityEngine;
 
-public class FieryRageLogic : IProlongingEffect
+public class FieryRageLogic : IActioner<float>, IValueChanger<FieryRageMomentDamageUpgrade, float>, IValueChanger<FieryRageDamagePerSecondUpgrade, float>
 {
     private readonly ParticleSystem HitEffect;
     private readonly ParticleSystem HeadEffect;
-    private readonly float DamageAtTheMoment;
-    private readonly float DamageFerSecond;
+    private float DamageAtTheMoment;
+    private float DamageFerSecond;
     private float DurationBurning;
-    private readonly float BaseDurationBurning;
     private float _prolongDuration;
-    float IProlongingEffect.ProlongDuration { get; set; }
-    private IProlongingEffect ProlongingEffect;
+    float IActioner<float>.Value { get; set; }
+    private IActioner<float> DurationUpgrade;
 
     public FieryRageLogic(ParticleSystem hitEffect, ParticleSystem headEffect, 
         float damageAtTheMoment, float damageFerSecond, float durationBurning)
@@ -20,8 +19,7 @@ public class FieryRageLogic : IProlongingEffect
         DamageAtTheMoment = damageAtTheMoment;
         DamageFerSecond = damageFerSecond;
         DurationBurning = durationBurning;
-        BaseDurationBurning = durationBurning;
-        ProlongingEffect = this;
+        DurationUpgrade = this;
     }
     
     public void Use(Transform target)
@@ -31,16 +29,27 @@ public class FieryRageLogic : IProlongingEffect
 
         IDeathInspector enemyDeathInspector = target.GetComponent<IDeathInspector>();
         Health enemyHealth = target.GetComponent<Health>();
-
         target.GetComponent<CharapterState>().StartBurning(DurationBurning, DamageFerSecond, HeadEffect);
         enemyHealth.ApplyDamage(DamageAtTheMoment);
-        
         enemyDeathInspector.ApplyDamage(enemyHealth);
         target.GetComponent<IDeathInspector>().ApplyDamage(enemyHealth);
     }
 
-    void IProlongingEffect.ProlongingEffect()
+    void IActioner<float>.Action()
     {
-        DurationBurning = BaseDurationBurning + ProlongingEffect.ProlongDuration;
+        DurationBurning += DurationUpgrade.Value;
+        Debug.Log(DurationBurning);
+    }
+
+    void IValueChanger<FieryRageMomentDamageUpgrade, float>.ChangeValue(float value)
+    {
+        DamageAtTheMoment += value;
+        Debug.Log($"DamageAtTheMoment {DamageAtTheMoment}");
+    }
+
+    void IValueChanger<FieryRageDamagePerSecondUpgrade, float>.ChangeValue(float value)
+    {
+        DamageFerSecond += value;
+        Debug.Log($"DamageFerSecond {DamageFerSecond}");
     }
 }

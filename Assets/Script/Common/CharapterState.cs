@@ -8,11 +8,11 @@ public interface IStateHandler
     State StateHandler();
 }
 
-interface IBurning
+public interface IPeriodicDamageable
 {
     MonoBehaviour Mono { get; set; }
-    void Burn(float duration, float damagePerSecond, ParticleSystem effect);
-    IEnumerator Burning(float duration, float damagePerSecond, ParticleSystem effect);
+    void StartPeriodicDamage(float duration, float damagePerSecond, ParticleSystem effect);
+    IEnumerator PeriodicDamage(float duration, float damagePerSecond, ParticleSystem effect);
 }
 
 interface IStun : IStateHandler
@@ -27,7 +27,7 @@ public class CharapterState : MonoBehaviour
     [SerializeField] private ParticleSystem Stun;
     private State CurrentState;
     private IStun StunHandler;
-    private BurningHandler BurningHandler;
+    private PeriodicDamageHandler PeriodicHandler;
     private IMovable Move;
     
     private void Start()
@@ -38,9 +38,9 @@ public class CharapterState : MonoBehaviour
 
     public void StartBurning(float duration, float damagePerSecond, ParticleSystem effect)
     {
-        BurningHandler = new BurningHandler(this, transform);
-        IBurning burning = BurningHandler;
-        burning.Burn(duration, damagePerSecond, effect);
+        PeriodicHandler = new PeriodicDamageHandler(this, transform);
+        IPeriodicDamageable periodicDamage = PeriodicHandler;
+        periodicDamage.StartPeriodicDamage(duration, damagePerSecond, effect);
     }
 
     public void SetStun(float duration)

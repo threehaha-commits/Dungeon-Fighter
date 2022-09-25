@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class FuryJumpLogic
+public class FuryJumpLogic : IValueChanger<FuryJumpUpgradeCountBound, int>, IValueChanger<FuryJumpUpgradeDamagePerBound, float>
 {
     private readonly TrailRenderer TrailEffect;
     private readonly ParticleSystem BoundEffect;
-    private readonly float DamagePerBound;
-    private readonly int BoundCount;
+    private float DamagePerBound;
+    private int BoundCount;
     private readonly float TimeBetweenJump;
     private readonly BoxCollider2D Collider;
     private int BoundVariator = 1;
@@ -68,5 +68,17 @@ public class FuryJumpLogic
         float x = Random.Range(target.position.x + xMin, target.position.x + xMax);
         float y = Random.Range(target.position.y + yMin, target.position.y + yMax);
         return new Vector2(x * BoundVariator, y * BoundVariator);
+    }
+
+    void IValueChanger<FuryJumpUpgradeCountBound, int>.ChangeValue(int value)
+    {
+        BoundCount += value;
+        Debug.Log($"BoundCount {BoundCount}");
+    }
+
+    void IValueChanger<FuryJumpUpgradeDamagePerBound, float>.ChangeValue(float value)
+    {
+        DamagePerBound += value;
+        Debug.Log($"DamagePerBound {DamagePerBound}");
     }
 }

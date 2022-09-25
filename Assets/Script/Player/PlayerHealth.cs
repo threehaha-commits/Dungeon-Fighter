@@ -26,13 +26,6 @@ public class PlayerHealth : Health
         HealthChanger.ChangeBar(CurrentHealth, MaxHealth);
     }
 
-    public void ChangeMaxHealthValue(float value)
-    {
-        MaxHealth += value;
-        CurrentHealth = MaxHealth;
-        HealthChanger.ChangeBar(CurrentHealth, MaxHealth);
-    }
-    
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))

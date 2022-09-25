@@ -16,6 +16,6 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: e1a086059da95714fae5b0f1ebdb7fe0, type: 3}
   Effects: {fileID: 11400000, guid: f4adf065237d78f42b5220ec12860f21, type: 2}
   MaxRange: 2.5
-  MinRange: 0.2
+  MinRange: 0.75
   Cooldown: 15
   ManaCost: 10

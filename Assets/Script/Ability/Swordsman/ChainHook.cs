@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ChainHook : MonoBehaviour, IAbilityTarget, ISetterNewEffect<IProlongingEffect>, ISetterNewEffect<IGetterDamageable>
+public class ChainHook : MonoBehaviour, IAbilityTarget, ISetterNewEffect<IActioner<ChainHookDealsDamage, float>>
 {
     public AbilityInfo InfoAbility { get; set; }
     private ParticleSystem Effect;
@@ -8,8 +8,7 @@ public class ChainHook : MonoBehaviour, IAbilityTarget, ISetterNewEffect<IProlon
     [SerializeField] private float HookSpeed;
     public Transform Target { get; set; }
     public ChainHookLogic Ability { get; private set; }
-    private IProlongingEffect ProlongingEffect;
-    private IGetterDamageable GetterDamageable;
+    private IActioner<ChainHookDealsDamage, float> GetterDamageable;
     
     private void Awake()
     {
@@ -24,17 +23,11 @@ public class ChainHook : MonoBehaviour, IAbilityTarget, ISetterNewEffect<IProlon
         if (InfoAbility.AbilityMain.AbilityIsReady(Target, transform))
         {
             Ability.Use(Target);
-            ProlongingEffect?.ProlongingEffect();
-            GetterDamageable?.ApplyDamage();
+            GetterDamageable?.Action();
         }
     }
 
-    void ISetterNewEffect<IProlongingEffect>.SetNewEffect(IProlongingEffect upgradeAbility)
-    {
-        ProlongingEffect = upgradeAbility;
-    }
-
-    void ISetterNewEffect<IGetterDamageable>.SetNewEffect(IGetterDamageable upgradeAbility)
+    void ISetterNewEffect<IActioner<ChainHookDealsDamage, float>>.SetNewEffect(IActioner<ChainHookDealsDamage, float> upgradeAbility)
     {
         GetterDamageable = upgradeAbility;
     }

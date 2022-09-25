@@ -6,7 +6,8 @@ public class UISkillWindowInitializer : MonoBehaviour
 {
     private Document Document;
     private VisualElement WindowWithLearnSkills;
-    private Button OpenCloseWindowButton;
+    private const string WindowSwitcherButtonName = "WindowVisibleSwitcher";
+    private Button WindowSwitcherButton;
     private readonly Button[] SkillButtonsFromSkillGroupUI = new Button[6];
     private readonly Button[] SlotButtons = new Button[6];
     
@@ -15,7 +16,7 @@ public class UISkillWindowInitializer : MonoBehaviour
     {
         Document = document;
         MouseOverUI.AddElement(document.WindowWithSkills, "MainWindow");
-        MouseOverUI.AddElement(document.WindowWithSkills, "OpenOrCloseWindowSkills");
+        MouseOverUI.AddElement(document.WindowWithSkills, WindowSwitcherButtonName);
     }
 
     private void Start()
@@ -23,7 +24,7 @@ public class UISkillWindowInitializer : MonoBehaviour
         var rootWindowWithSkills = Document.WindowWithSkills.rootVisualElement;
         var rootSkill = Document.Skill.rootVisualElement;
         WindowWithLearnSkills = rootWindowWithSkills.Q<VisualElement>("MainWindow");
-        
+        new WindowWithSkillUpgradeSwitcher(rootWindowWithSkills);
         FindSkillSlots();
         FindEmptySlotFromSkillGroup(rootSkill);
         
@@ -66,8 +67,8 @@ public class UISkillWindowInitializer : MonoBehaviour
 
     private void FindAndSetEventToButton(VisualElement root)
     {
-        OpenCloseWindowButton = root.Q<Button>("OpenOrCloseWindowSkills");
-        var openCloseButtonLogic = new OpenCloseButtonLogic(WindowWithLearnSkills);
-        OpenCloseWindowButton.clicked += openCloseButtonLogic.Visibly;
+        WindowSwitcherButton = root.Q<Button>(WindowSwitcherButtonName);
+        var openCloseButtonLogic = new WindowVisibleSwitcher(WindowWithLearnSkills);
+        WindowSwitcherButton.clicked += openCloseButtonLogic.Visibly;
     }
 }

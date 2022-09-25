@@ -5237,8 +5237,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e75accd906244ef488f5d1f730d91931, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamagePerBound: 7.5
-  BoundCount: 5
+  DamagePerBound: 3.5
+  BoundCount: 3
   TimeBetweenJump: 0.25
 --- !u!114 &4787352863208427768
 MonoBehaviour:

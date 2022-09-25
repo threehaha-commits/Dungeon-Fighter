@@ -11,7 +11,7 @@ public class FuryJump : MonoBehaviour, IAbilityTarget
     private BoxCollider2D Collider;
     public Transform Target { get; set; }
     private CharapterState State;
-    private FuryJumpLogic Ability;
+    public FuryJumpLogic Ability { get; private set; }
     
     private void Awake()
     {

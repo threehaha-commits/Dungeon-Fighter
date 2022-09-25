@@ -9,7 +9,7 @@ public class FieryRage : MonoBehaviour, IAbilityTarget
     [SerializeField] private float DamageFerSecond;
     [SerializeField] private float DurationBurning;
     public Transform Target { get; set; }
-    private FieryRageLogic Ability;
+    public FieryRageLogic Ability { get; private set; }
     
     private void Awake()
     {
@@ -24,6 +24,8 @@ public class FieryRage : MonoBehaviour, IAbilityTarget
     void IAbility.Use()
     {
         if (InfoAbility.AbilityMain.AbilityIsReady(Target, transform))
+        {
             Ability.Use(Target);
+        }
     }
 }

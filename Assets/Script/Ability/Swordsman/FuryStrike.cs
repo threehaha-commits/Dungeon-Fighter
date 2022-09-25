@@ -1,12 +1,13 @@
 using UnityEngine;
 
-public class FuryStrike : MonoBehaviour, IAbilityTarget
+public class FuryStrike : MonoBehaviour, IAbilityTarget, ISetterNewEffect<IGetterPeriodicDamageable>
 {
     public AbilityInfo InfoAbility { get; set; }
     private ParticleSystem Effect;
     [SerializeField] private float DamagePercent;
     public Transform Target { get; set; }
-    private FuryStrikeLogic Ability;
+    public FuryStrikeLogic Ability { get; private set; }
+    private IGetterPeriodicDamageable GetterPeriodicDamageable;
     
     private void Awake()
     {
@@ -18,6 +19,14 @@ public class FuryStrike : MonoBehaviour, IAbilityTarget
     void IAbility.Use()
     {
         if (InfoAbility.AbilityMain.AbilityIsReady(Target, transform))
+        {
             Ability.Use(Target);
+            GetterPeriodicDamageable?.StartPeriodicDamage();
+        }
+    }
+
+    void ISetterNewEffect<IGetterPeriodicDamageable>.SetNewEffect(IGetterPeriodicDamageable upgradeAbility)
+    {
+        GetterPeriodicDamageable = upgradeAbility;
     }
 }

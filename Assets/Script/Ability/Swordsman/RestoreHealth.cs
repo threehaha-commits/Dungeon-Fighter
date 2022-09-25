@@ -1,12 +1,13 @@
 using UnityEngine;
 
-public class RestoreHealth : MonoBehaviour, IAbility
+public class RestoreHealth : MonoBehaviour, IAbility, ISetterNewEffect<IActioner<RestoreHealthIncreaseMaxHealth, float>>
 {
     public AbilityInfo InfoAbility { get; set; }
     private ParticleSystem Effect;
     [SerializeField] private float LifeRestore;
     private Health _Health;
-    private RestoreHealthLogic Ability;
+    public RestoreHealthLogic Ability { get; private set; }
+    private IActioner<RestoreHealthIncreaseMaxHealth, float> ActionerMaxValue;
     
     private void Awake()
     {
@@ -23,6 +24,14 @@ public class RestoreHealth : MonoBehaviour, IAbility
     void IAbility.Use()
     {
         if (InfoAbility.AbilityMain.AbilityIsReady())
+        {
             Ability.Use();
+            ActionerMaxValue?.Action();
+        }
+    }
+
+    void ISetterNewEffect<IActioner<RestoreHealthIncreaseMaxHealth, float>>.SetNewEffect(IActioner<RestoreHealthIncreaseMaxHealth, float> upgradeAbility)
+    {
+        ActionerMaxValue = upgradeAbility;
     }
 }
