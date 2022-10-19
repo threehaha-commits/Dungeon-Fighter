@@ -7,11 +7,11 @@ using Zenject;
 public class ItemPanel : MonoBehaviour
 {
     private VisualElement Root;
-    private Dictionary<int, Item> PanelWithItems = new Dictionary<int, Item>();
+    private Dictionary<int, Item> PanelWithItems = new();
     private Button[] Slot = new Button[9];
     private VisualElement[] ConsumableVisual = new VisualElement[9];
     private int SlotCount;
-    private SlotFinder Finder = new SlotFinder();
+    private SlotFinder Finder = new();
     
     [Inject]
     private void Construct(Document document)
@@ -31,11 +31,11 @@ public class ItemPanel : MonoBehaviour
 
     public void AddItem(ConsumableItem item)
     {
-        int slotId = Finder.HaveEmptySlot(SlotCount, PanelWithItems);
+        int slotId = Finder.FindEmptySlot(SlotCount, PanelWithItems);
         if (slotId < 0)
             return;
 
-        int identicalConsumableId = Finder.HaveIdenticalConsumableItems(PanelWithItems, item);
+        int identicalConsumableId = Finder.FindIdenticalConsumableItems(PanelWithItems, item);
         if (identicalConsumableId != -1)
         {
             ConsumableItem consumableItem = (ConsumableItem)PanelWithItems[identicalConsumableId];
@@ -45,13 +45,42 @@ public class ItemPanel : MonoBehaviour
         }
         
         item.SetID(slotId);
-        RegisterSlot(slotId);
+        WhatIsItemType(slotId, item);
         AddItemIconToPanel(slotId, item);
-        ConsumableVisualSetActive(slotId, true);
-        Slot[slotId].clicked += item.Use;
+        RegisterClickEventFromSlot(item, slotId);
         item.Initialize();
     }
 
+    public void AddItem(NonConsumableItem item)
+    {
+        int slotId = Finder.FindEmptySlot(SlotCount, PanelWithItems);
+        if (slotId < 0)
+            return;
+
+        item.SetID(slotId);
+        WhatIsItemType(slotId, item);
+        AddItemIconToPanel(slotId, item);
+        RegisterClickEventFromSlot(item, slotId);
+    }
+    
+    private void RegisterClickEventFromSlot(IItemUsable item, int slotId)
+    {
+        Slot[slotId].clicked += item.Use;
+    }
+
+    private void WhatIsItemType(int slotId, Item item)
+    {
+        if (item.TryGetComponent<ConsumableItem>(out var consumable))
+        {
+            RegisterConsumableSlot(slotId);
+            ConsumableVisualSetActive(slotId, true);
+        }
+        else if (item.TryGetComponent<NonConsumableItem>(out var nonConsumable))
+        {
+            RegisterNonConsumableSlot(slotId);
+        }
+    }
+    
     private void ConsumableVisualSetActive(int itemId, bool active)
     {
         ConsumableVisual[itemId].visible = active;
@@ -67,16 +96,21 @@ public class ItemPanel : MonoBehaviour
     {
         Slot[itemId].style.backgroundImage = RemoveItemIcon();
     }
-
-    private void RegisterSlot(int slotId)
+    
+    private void RegisterConsumableSlot(int slotId)
     {
         Slot[slotId] = Root.Q<Button>("Slot" + slotId);
         ConsumableVisual[slotId] = Root.Q<VisualElement>("Amount" + slotId);
     }
-
+    
+    private void RegisterNonConsumableSlot(int slotId)
+    {
+        Slot[slotId] = Root.Q<Button>("Slot" + slotId);
+    }
+    
     private StyleBackground GetItemIcon(int itemId)
     {
-        return new StyleBackground(PanelWithItems[itemId].GetIcon());
+        return new StyleBackground(PanelWithItems[itemId].Icon());
     }
 
     private StyleBackground RemoveItemIcon()

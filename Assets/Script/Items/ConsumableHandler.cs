@@ -1,10 +1,4 @@
-﻿using UnityEngine;
-using Zenject;
-
-public interface IConsumable
-{
-    void Change(ConsumableItem item, ref int amount, int id);
-}
+﻿using ItemChange;
 
 public class ConsumableHandler : IConsumable
 {

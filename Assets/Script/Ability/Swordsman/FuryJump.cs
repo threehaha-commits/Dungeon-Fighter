@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FuryJump : MonoBehaviour, IAbilityTarget
+public class FuryJump : AbilityInputs, IAbilityTarget
 {
     public AbilityInfo InfoAbility { get; set; }
     private TrailRenderer TrailEffect;
@@ -15,6 +15,7 @@ public class FuryJump : MonoBehaviour, IAbilityTarget
     
     private void Awake()
     {
+        InputAbility = this;
         InfoAbility = Resources.Load<AbilityInfo>("Ability Object/Fury Jump");
         TrailEffect = (TrailRenderer)InfoAbility.Effects.GetEffect(InfoAbility.Effects.Trail[0], transform);
         BoundEffect = (ParticleSystem)InfoAbility.Effects.GetEffect(InfoAbility.Effects.Effect[0], transform);

@@ -1,6 +1,7 @@
+using System;
 using UnityEngine;
 
-public class RestoreHealth : MonoBehaviour, IAbility, ISetterNewEffect<IActioner<RestoreHealthIncreaseMaxHealth, float>>
+public class RestoreHealth : AbilityInputs, IAbility, ISetterNewEffect<IActioner<RestoreHealthIncreaseMaxHealth, float>>
 {
     public AbilityInfo InfoAbility { get; set; }
     private ParticleSystem Effect;
@@ -17,10 +18,11 @@ public class RestoreHealth : MonoBehaviour, IAbility, ISetterNewEffect<IActioner
 
     private void Start()
     {
+        InputAbility = this;
         _Health = GetComponent<Health>();
         Ability = new RestoreHealthLogic(Effect, _Health, LifeRestore);
     }
-    
+
     void IAbility.Use()
     {
         if (InfoAbility.AbilityMain.AbilityIsReady())
@@ -33,5 +35,19 @@ public class RestoreHealth : MonoBehaviour, IAbility, ISetterNewEffect<IActioner
     void ISetterNewEffect<IActioner<RestoreHealthIncreaseMaxHealth, float>>.SetNewEffect(IActioner<RestoreHealthIncreaseMaxHealth, float> upgradeAbility)
     {
         ActionerMaxValue = upgradeAbility;
+    }
+}
+
+public class AbilityInputs : MonoBehaviour
+{
+    public KeyCode Key;
+    protected IAbility InputAbility;
+    
+    protected virtual void Update()
+    {
+        if (Input.GetKeyDown(Key))
+        {
+            InputAbility.Use();
+        }
     }
 }

@@ -36,7 +36,7 @@ public class DropWindowFill
         var button = e.Q<Button>();
         var label = e.Q<Label>();
         button.style.backgroundImage = new StyleBackground(Sprites[index]);
-        label.text = DropItem[index].GetNameInfo();
+        label.text = DropItem[index].Name();
         ClickEvent.AddEvent(index, button, DropItem, Document);
     }
 }

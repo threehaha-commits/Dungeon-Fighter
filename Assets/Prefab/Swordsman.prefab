@@ -5183,6 +5183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1463e917918c6545a4dfc55d610f750, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Key: 49
   HookSpeed: 3
 --- !u!114 &7578103679859373042
 MonoBehaviour:
@@ -5196,6 +5197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cc3046186a3f4b4288e29cbebcc9765, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Key: 50
   DamagePercent: 18
 --- !u!114 &2832328762558485609
 MonoBehaviour:
@@ -5209,6 +5211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1d8ac00c5f7dd44daf6aec06b4fcfff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Key: 51
   DamageAtTheMoment: 15
   DamageFerSecond: 3.5
   DurationBurning: 3
@@ -5224,6 +5227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd9e2b9b07793304ca32207125bd5416, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Key: 52
   RushSpeed: 5
 --- !u!114 &3064323874202521743
 MonoBehaviour:
@@ -5237,6 +5241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e75accd906244ef488f5d1f730d91931, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Key: 53
   DamagePerBound: 3.5
   BoundCount: 3
   TimeBetweenJump: 0.25
@@ -5252,6 +5257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f1c724d8cf26e141b834b22993a21bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Key: 54
   LifeRestore: 25
 --- !u!114 &-819024251806055362
 MonoBehaviour:

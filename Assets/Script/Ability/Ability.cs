@@ -16,14 +16,12 @@ public class Ability : IValueChanger<float>
     private Reloader Reload;
     private float ReloadTime;
     private readonly AbilityInfo Info;
-    private readonly IValueChanger<float> ReducibleCooldown;
     
     public Ability(AbilityInfo info)
     {
         Info = info;
         ReloadTime = Info.Cooldown;
         Reload = new Reloader(ReloadTime);
-        ReducibleCooldown = this;
     }
     
     void IValueChanger<float>.ChangeValue(float reduceCooldownTime)

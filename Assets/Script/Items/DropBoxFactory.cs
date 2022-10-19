@@ -8,7 +8,6 @@ public interface IDropBoxFactory
 
 public class DropBoxFactory : IDropBoxFactory
 {
-    [Inject] private Document Document;
     private readonly DiContainer container;
     private Chest DropBox;
 

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FieryRage : MonoBehaviour, IAbilityTarget
+public class FieryRage : AbilityInputs, IAbilityTarget
 {
     public AbilityInfo InfoAbility { get; set; }
     private ParticleSystem HitEffect;
@@ -13,6 +13,7 @@ public class FieryRage : MonoBehaviour, IAbilityTarget
     
     private void Awake()
     {
+        InputAbility = this;
         InfoAbility = Resources.Load<AbilityInfo>("Ability Object/Fiery Rage");
         HitEffect = (ParticleSystem)InfoAbility.Effects.GetEffect(InfoAbility.Effects.Effect[0], transform);
         HeadEffect = (ParticleSystem)InfoAbility.Effects.GetEffect(InfoAbility.Effects.Effect[1], transform);

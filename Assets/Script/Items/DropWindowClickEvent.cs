@@ -28,7 +28,7 @@ public class DropWindowClickEvent
         Item selectionItem = (Item)items.First();
         Factory.Create(selectionItem);
         List.itemsSource.Remove(selectionItem);
-        Sprites.Remove(selectionItem.GetIcon());
+        Sprites.Remove(selectionItem.Icon());
         List.Rebuild();
     }
 }

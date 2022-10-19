@@ -1,4 +1,5 @@
 ﻿using UnityEngine.UIElements;
+using ItemChange;
 
 public class ConsumableVisual : IConsumable
 {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ConsumableItem : Item
+public class ConsumableItem : Item, IItemUsable
 {
     [SerializeField] private int Amount;
     private ConsumableHandler ConsumableHandler;

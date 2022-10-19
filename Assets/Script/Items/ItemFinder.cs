@@ -2,7 +2,7 @@
 
 public class SlotFinder
 {
-    public int HaveEmptySlot(int slotCount, Dictionary<int, Item> panelWithItems)
+    public int FindEmptySlot(int slotCount, Dictionary<int, Item> panelWithItems)
     {
         for (int i = 0; i < slotCount; i++)
         {
@@ -13,15 +13,13 @@ public class SlotFinder
         return -1;
     }
 
-    public int HaveIdenticalConsumableItems(Dictionary<int, Item> panelWithItems, Item item)
+    public int FindIdenticalConsumableItems(Dictionary<int, Item> panelWithItems, Item item)
     {
         for (int i = 0; i < panelWithItems.Count; i++)
         {
             string itemName = panelWithItems[i].name;
             if (itemName == item.name)
-            {
                 return i;
-            }
         }
 
         return -1;

@@ -7,7 +7,7 @@ public class ExperiencePotion : ConsumableItem
 
     private void Start()
     {
-        ExpirienceFromCharapter = transform.root.GetComponent<IExpirience>();
+        ExpirienceFromCharapter = transform.parent.GetComponent<IExpirience>();
     }
 
     public override void Use()

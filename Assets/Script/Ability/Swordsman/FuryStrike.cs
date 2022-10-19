@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FuryStrike : MonoBehaviour, IAbilityTarget, ISetterNewEffect<IGetterPeriodicDamageable>
+public class FuryStrike : AbilityInputs, IAbilityTarget, ISetterNewEffect<IGetterPeriodicDamageable>
 {
     public AbilityInfo InfoAbility { get; set; }
     private ParticleSystem Effect;
@@ -11,6 +11,7 @@ public class FuryStrike : MonoBehaviour, IAbilityTarget, ISetterNewEffect<IGette
     
     private void Awake()
     {
+        InputAbility = this;
         InfoAbility = Resources.Load<AbilityInfo>("Ability Object/Fury Strike");
         Effect = (ParticleSystem)InfoAbility.Effects.GetEffect(InfoAbility.Effects.Effect[0], transform);
         Ability = new FuryStrikeLogic(Effect, DamagePercent);

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using Zenject;
 
@@ -12,34 +13,36 @@ public class DropItems : MonoBehaviour, IDeathInspector
     {
         Chance = new int[Items.Length];
         for(int i = 0;i < Items.Length; i++)
-            Chance[i] = Items[i].GetDropChance();
+            Chance[i] = Items[i].DropChance();
 
-        //IDeathInspector inspector = this;
-        //inspector.ApplyDamage(GetComponent<Health>());
+        Test();
     }
 
+    private void Test()
+    {
+        List<Item> dropList = new List<Item>();
+
+        dropList.Add(Items[0]);
+        dropList.Add(Items[1]);
+        dropList.Add(Items[2]);
+        dropList.Add(Items[3]);
+        dropList.Add(Items[4]);
+        SendDropListToFactory(dropList);
+        gameObject.SetActive(false);
+    }
+    
     void IDeathInspector.ApplyDamage(Health health)
     {
-        // List<Item> dropList = new List<Item>();
-        // AddItemInDropList(dropList);
-        // SendDropListToFactory(dropList);
-        
         if (health.IsDeath)
         {
             List<Item> dropList = new List<Item>();
             AddItemInDropList(dropList);
             SendDropListToFactory(dropList);
         }
-        //gameObject.SetActive(false);
     }
 
     private void AddItemInDropList(List<Item> dropList)
     {
-        // dropList.Add(Items[0]);
-        // dropList.Add(Items[1]);
-        // dropList.Add(Items[2]);
-        // dropList.Add(Items[3]);
-        // dropList.Add(Items[4]);
         for (int i = 0; i < Items.Length; i++)
         {
             if (ItemWillDrop(i))

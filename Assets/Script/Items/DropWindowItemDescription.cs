@@ -16,7 +16,7 @@ public class DropWindowItemDescription
         var label = Window.Q<Label>("DescriptionText");
         button.clicked += () =>
         {
-            label.text = item.GetDescriptionInfo();
+            label.text = item.Description();
             DescriptionWindowEnable();
         };
     }

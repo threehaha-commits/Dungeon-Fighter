@@ -7,12 +7,13 @@ public class HealingPotion : ConsumableItem
 
     private void Start()
     {
-        Health = transform.root.GetComponent<Health>();
+        Health = transform.parent.GetComponent<Health>();
     }
 
     public override void Use()
     {
         base.Use();
+        Debug.Log(Health);
         Health.ChangeHpValue(AmountHealthRestore);
     }
 }

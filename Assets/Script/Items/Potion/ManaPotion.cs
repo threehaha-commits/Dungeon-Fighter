@@ -7,7 +7,7 @@ public class ManaPotion : ConsumableItem
 
     private void Start()
     {
-        Mana = transform.root.GetComponent<Mana>();
+        Mana = transform.parent.GetComponent<Mana>();
     }
 
     public override void Use()

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Rush : MonoBehaviour, IAbilityTarget, ISetterNewEffect<IActioner<float>>
+public class Rush : AbilityInputs, IAbilityTarget, ISetterNewEffect<IActioner<float>>
 {
     public AbilityInfo InfoAbility { get; set; }
     private TrailRenderer Effect;
@@ -12,6 +12,7 @@ public class Rush : MonoBehaviour, IAbilityTarget, ISetterNewEffect<IActioner<fl
     
     private void Awake()
     {
+        InputAbility = this;
         InfoAbility = Resources.Load<AbilityInfo>("Ability Object/Rush");
         Effect = (TrailRenderer)InfoAbility.Effects.GetEffect(InfoAbility.Effects.Trail[0], transform);
         Ability = new RushLogic(this, InfoAbility, transform, Effect, RushSpeed, StunDuration);

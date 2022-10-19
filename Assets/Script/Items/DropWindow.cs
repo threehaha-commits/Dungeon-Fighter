@@ -40,6 +40,6 @@ public class DropWindow
     private static void FillSprites(Item[] dropItems)
     {
         for (int i = 0; i < dropItems.Length; i++)
-            Sprites.Add(dropItems[i].GetIcon());
+            Sprites.Add(dropItems[i].Icon());
     }
 }
